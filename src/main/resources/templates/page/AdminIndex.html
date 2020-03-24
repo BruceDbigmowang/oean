@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="assets/images/favicon.png" type="image/png">
+    <title>欢迎登录，管理员</title>
+
+    <!--Begin  Page Level  CSS -->
+    <link href="assets/plugins/morris-chart/morris.css" rel="stylesheet">
+    <link href="assets/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet"/>
+    <!--End  Page Level  CSS -->
+    <link href="assets/css/icons.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body class="sticky-header">
+
+
+<!--Start left side Menu-->
+<div class="left-side sticky-left-side">
+
+    <!--logo-->
+    <div class="logo">
+        <a href="#"><img src="assets/images/logo.png" alt=""></a>
+    </div>
+
+    <div class="logo-icon text-center">
+        <a href="#"><img src="assets/images/logo-icon.png" alt=""></a>
+    </div>
+    <!--logo-->
+
+    <div class="left-side-inner">
+        <!--Sidebar nav-->
+        <ul class="nav nav-pills nav-stacked custom-nav">
+
+            <li><a href="foreUserInfoManager"><i class="icon-note"></i> <span>用户信息管理</span></a></li>
+            <li><a href="foreCategoryManage"><i class="icon-note"></i> <span>生物分类管理</span></a></li>
+            <li><a href="foreInfoManage"><i class="icon-note"></i> <span>生物信息管理</span></a></li>
+
+
+
+
+
+        </ul>
+        <!--End sidebar nav-->
+
+    </div>
+</div>
+<!--End left side menu-->
+
+
+<!-- main content start-->
+<div class="main-content" >
+
+    <!-- header section start-->
+    <div class="header-section">
+
+        <a class="toggle-btn"><i class="fa fa-bars"></i></a>
+
+
+
+        <!--notification menu start -->
+        <div class="menu-right">
+            <ul class="notification-menu">
+
+
+
+                <li>
+                    <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <img src="assets/images/users/avatar-6.jpg" alt="" />
+                        <span th:if="${null!=session.user}">
+		                    <a href="#" th:text="${session.user.account}"></a>
+	                    </span>
+
+
+                        <span th:if="${null==session.user}">
+		                    <a href="login">请登录</a>
+                        </span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                        <li> <a href="#"> <i class="fa fa-wrench"></i> Settings </a> </li>
+                        <li> <a href="forelogout"> <i class="fa fa-lock"></i> Logout </a> </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+        <!--notification menu end -->
+
+    </div>
+    <!-- header section end-->
+
+
+    <!--body wrapper start-->
+    <div class="wrapper">
+
+        <h1>欢迎使用海洋生物制药系统</h1>
+
+    </div>
+    <!-- End Wrapper-->
+
+
+    <!--Start  Footer -->
+    <footer class="footer-main">Copyright &copy; 2018.Company name All rights reserved.<a target="_blank" href="http://www.17sucai.com/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></footer>
+    <!--End footer -->
+
+</div>
+<!--End main content -->
+
+
+
+<!--Begin core plugin -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/plugins/moment/moment.js"></script>
+<script  src="assets/js/jquery.slimscroll.js "></script>
+<script src="assets/js/jquery.nicescroll.js"></script>
+<script src="assets/js/functions.js"></script>
+<!-- End core plugin -->
+
+<!--Begin Page Level Plugin-->
+<script src="assets/plugins/morris-chart/morris.js"></script>
+<script src="assets/plugins/morris-chart/raphael-min.js"></script>
+<script src="assets/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
+<script src="assets/pages/dashboard.js"></script>
+<!--End Page Level Plugin-->
+
+
+</body>
+
+</html>
