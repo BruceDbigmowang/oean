@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class BiologyController {
 
@@ -49,5 +51,55 @@ public class BiologyController {
             biology.setShu(SHU);
         }
         biologyService.updateRecord(biology);
+    }
+
+    @RequestMapping("/findAll")
+    public List<Biology> all(){
+        return biologyService.findAll();
+    }
+
+    @RequestMapping("checkHas")
+    public boolean exist(@RequestParam("name")String name){
+        return biologyService.checkExist(name);
+    }
+
+    @RequestMapping("/saveAll")
+    public void save(@RequestParam("name")String name , @RequestParam("JIE")String JIE , @RequestParam("MEN")String MEN , @RequestParam("GANG")String GANG , @RequestParam("MU")String MU ,
+                     @RequestParam("KE")String KE , @RequestParam("SHU")String SHU , @RequestParam("Info")String Info){
+        Biology biology = new Biology();
+        biology.setName(name);
+        if(!JIE.equals("")){
+            biology.setJie(JIE);
+        }
+
+        if(!MEN.equals("")){
+            biology.setMen(MEN);
+        }
+
+        if(!GANG.equals("")){
+            biology.setGang(GANG);
+        }
+
+        if(!MU.equals("")){
+            biology.setMu(MU);
+        }
+
+        if(!KE.equals("")){
+            biology.setKe(KE);
+        }
+
+        if(!SHU.equals("")){
+            biology.setShu(SHU);
+        }
+
+        if(!Info.equals("")){
+            biology.setInfo(Info);
+        }
+        biologyService.save(biology);
+    }
+
+    @RequestMapping("/deleteBiology")
+    public void delete(@RequestParam("bid")int bid){
+        biologyService.delete(bid);
     }
 }

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="assets/images/favicon.png" type="image/png">
+    <title>海洋生物信息管理</title>
+
+    <!--Begin  Page Level  CSS -->
+    <link href="assets/plugins/morris-chart/morris.css" rel="stylesheet">
+    <link href="assets/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet"/>
+    <!--End  Page Level  CSS -->
+    <link href="assets/css/icons.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/responsive.css" rel="stylesheet">
+    <script src="js/jquery/2.0.0/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+</head>
+
+<body class="sticky-header">
+
+<script type="text/javascript">
+
+    $(function () {
+        showAll();
+    })
+
+    function showAll(){
+        $.ajax({
+            type:"post",
+            url:"findAll",
+            async:false,
+            success:function(data){
+                $("#allBiology").html("");
+                for(var i = 0 ; i < data.length ; i++){
+                    var no = i+1;
+                    $("#allBiology").append("<tr>"+"<td>"+no+"</td>"+"<td>"+data[i].id+"</td>"+"<td>"+data[i].name+"</td>"+"<td>"+'<button class="btn btn-primary" onclick="deleteBiology( '+data[i].id+')">'+"删除该条数据"+"</button>"+"</td>"+"</tr>");
+                }
+            }
+        })
+    }
+
+    function check() {
+        var name = document.getElementById("name").value;
+        if(name == ""){
+            alert("请填写名称");
+            return false;
+        }
+        $.ajax({
+            type:"post",
+            data:{"name":name},
+            url:"checkHas",
+            async:false,
+            success:function (data) {
+                if(data== true){
+                    alert("该海洋生物已存在");
+                }else{
+                    saveAllInfo();
+                }
+            }
+
+        })
+    }
+
+    function saveAllInfo() {
+        var name = document.getElementById("name").value;
+        var JIE = document.getElementById("JIE").value;
+        var MEN = document.getElementById("MENG").value;
+        var GANG = document.getElementById("GANG").value;
+        var MU = document.getElementById("MU").value;
+        var KE = document.getElementById("KE").value;
+        var SHU = document.getElementById("SHU").value;
+        var Info = document.getElementById("info").value;
+        var data = {"name":name , "JIE":JIE , "MEN":MEN , "GANG":GANG , "MU":MU , "KE":KE , "SHU":SHU , "Info":Info};
+        var url = "saveAll";
+        $.ajax({
+            type:"post",
+            data:data,
+            url:url,
+            async:false,
+            success:function (data) {
+                alert("数据写入成功");
+                showAll();
+            }
+        })
+    }
+
+    function deleteBiology(bid) {
+        $.ajax({
+            type:"post",
+            data:{"bid":bid},
+            url:"deleteBiology",
+            async:false,
+            success:function(data){
+                alert("删除成功");
+                showAll();
+            }
+        })
+    }
+
+</script>
+
+<!--Start left side Menu-->
+<div class="left-side sticky-left-side">
+
+    <!--logo-->
+    <div class="logo">
+        <a href="#"><img src="assets/images/logo.png" alt=""></a>
+    </div>
+
+    <div class="logo-icon text-center">
+        <a href="#"><img src="assets/images/logo-icon.png" alt=""></a>
+    </div>
+    <!--logo-->
+
+    <div class="left-side-inner">
+        <!--Sidebar nav-->
+        <ul class="nav nav-pills nav-stacked custom-nav">
+
+            <li><a href="foreUserInfoManager"><i class="icon-note"></i> <span>用户信息管理</span></a></li>
+            <li><a href="foreCategoryManage"><i class="icon-note"></i> <span>生物分类管理</span></a></li>
+            <li><a href="foreInfoManage"><i class="icon-note"></i> <span>生物信息管理</span></a></li>
+
+
+
+
+
+        </ul>
+        <!--End sidebar nav-->
+
+    </div>
+</div>
+<!--End left side menu-->
+
+
+<!-- main content start-->
+<div class="main-content" >
+
+    <!-- header section start-->
+    <div class="header-section">
+
+        <a class="toggle-btn"><i class="fa fa-bars"></i></a>
+
+
+
+        <!--notification menu start -->
+        <div class="menu-right">
+            <ul class="notification-menu">
+
+
+
+                <li>
+                    <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <img src="assets/images/users/avatar-6.jpg" alt="" />
+                        <span th:if="${null!=session.user}">
+		                    <a href="#" th:text="${session.user.name}"></a>
+	                    </span>
+
+
+                        <span th:if="${null==session.user}">
+		                    <a href="login">请登录</a>
+                        </span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                        <li> <a href="#"> <i class="fa fa-wrench"></i> Settings </a> </li>
+                        <li> <a href="forelogout"> <i class="fa fa-lock"></i> Logout </a> </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+        <!--notification menu end -->
+
+    </div>
+    <!-- header section end-->
+
+
+    <!--body wrapper start-->
+    <div class="wrapper">
+        <div>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">新建海洋生物信息</button>
+            <button class="btn btn-primary">excel表格批量导入</button>
+        </div>
+        <div class="modal fade" id="myModal"  data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" style="width: 800px;height: 400px;">
+                <div class="modal-content" style="width: 800px;height: 400px;">
+                    <div class="modal-header">
+                        <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">海洋生物信息</h4>
+                    </div>
+                    <div class="modal-body" style="height: 280px;">
+                        <table class="table" style="font-size: 18px;">
+                            <tr>
+                                <td>名称</td>
+                                <td><input id="name" style="width: 300px;font-size: 18px;"></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>界</td>
+                                <td><input id="JIE" style="width: 300px;font-size: 18px;"></td>
+                                <td>门</td>
+                                <td><input id="MENG" style="width: 300px;font-size: 18px;"></td>
+                            </tr>
+                            <tr>
+                                <td>纲</td>
+                                <td><input id="GANG" style="width: 300px;font-size: 18px;"></td>
+                                <td>目</td>
+                                <td><input id="MU" style="width: 300px;font-size: 18px;"></td>
+                            </tr>
+                            <tr>
+                                <td>科</td>
+                                <td><input id="KE" style="width: 300px;font-size: 18px;"></td>
+                                <td>属</td>
+                                <td><input id="SHU" style="width: 300px;font-size: 18px;"></td>
+                            </tr>
+                            <tr>
+                                <td>简介</td>
+                                <td colspan="3"><textarea id="info" class="form-control"></textarea></td>
+
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+                        <button class="btn btn-primary" type="button" onclick="check()">提交</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+        <div style="width:600px;margin-left: 20%;margin-top: 5%;">
+            <table class="table" style="font-size: 18px;background-color: white;">
+                <thead>
+                    <tr>
+                        <td style="width:100px;">序号</td><td style="width:100px;">编号</td><td style="width:300px;">名称</td><td style="width:100px;">操作</td>
+                    </tr>
+                </thead>
+                <tbody id="allBiology"></tbody>
+            </table>
+        </div>
+    </div>
+    <!-- End Wrapper-->
+
+
+    <!--Start  Footer -->
+    <footer class="footer-main">Copyright &copy; 2018.Company name All rights reserved.<a target="_blank" href="http://www.17sucai.com/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></footer>
+    <!--End footer -->
+
+</div>
+<!--End main content -->
+
+
+
+<!--Begin core plugin -->
+
+<script src="assets/plugins/moment/moment.js"></script>
+<script  src="assets/js/jquery.slimscroll.js "></script>
+<script src="assets/js/jquery.nicescroll.js"></script>
+<script src="assets/js/functions.js"></script>
+<!-- End core plugin -->
+
+<!--Begin Page Level Plugin-->
+<script src="assets/plugins/morris-chart/morris.js"></script>
+<script src="assets/plugins/morris-chart/raphael-min.js"></script>
+<!--<script src="assets/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>-->
+<script src="assets/pages/dashboard.js"></script>
+<!--End Page Level Plugin-->
+
+
+
+</body>
+
+</html>

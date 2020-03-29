@@ -18,7 +18,8 @@
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/responsive.css" rel="stylesheet">
-
+    <script src="js/jquery/2.0.0/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -30,6 +31,51 @@
 
 <body class="sticky-header">
 
+<script>
+
+function checkExist(){
+    var account = document.getElementById("account").value;
+    if(account.length != 6){
+        alert("用户账号必须是6位");
+        return false;
+    }
+    var name = document.getElementById("name").value;
+    if(name == ""){
+        alert("请填写姓名");
+        return false;
+    }
+    $.ajax({
+        type:"post",
+        data:{"account":account},
+        url:"has",
+        async:false,
+        success:function(data){
+            if(data==true){
+                alert("该账号已被使用");
+            }else{
+                saveUser();
+            }
+        }
+    })
+}
+
+function saveUser(){
+    var account = document.getElementById("account").value;
+    var name = document.getElementById("name").value;
+    var data={"account":account , "name":name};
+    var url="saveUser";
+    $.ajax({
+        type:"post",
+        data:data,
+        url:url,
+        async:false,
+        success:function (data) {
+            alert("数据保存成功");
+        }
+    })
+}
+
+</script>
 
 <!--Start left side Menu-->
 <div class="left-side sticky-left-side">
@@ -84,7 +130,7 @@
                     <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                         <img src="assets/images/users/avatar-6.jpg" alt="" />
                         <span th:if="${null!=session.user}">
-		                    <a href="#" th:text="${session.user.account}"></a>
+		                    <a href="#" th:text="${session.user.name}"></a>
 	                    </span>
 
 
@@ -110,6 +156,24 @@
     <!--body wrapper start-->
     <div class="wrapper">
 
+        <div style="position: relative;width:1000px;height: 800px;">
+            <button class="btn btn-primary">显示所有用户</button><button class="btn btn-primary">显示所有管理员</button>
+
+            <div style="position: absolute;width:1000px;height:600px;">
+                <table class="table" style="background-color: white;font-size: 18px;margin-left: 10%;margin-top: 5%;">
+                    <thead>
+                    <tr>
+                        <td>账号</td><td>姓名</td><td>操作</td>
+                    </tr>
+                    </thead>
+                    <tbody id="allUser"></tbody>
+                </table>
+            </div>
+            <div style="position: absolute;margin-top: 700px;margin-left: 20%">
+                账号<input id="account" style="width: 250px;font-size: 18px;">姓名<input id="name" style="width: 250px;font-size: 18px;"><button class="btn btn-primary" onclick="checkExist();">提交</button>
+            </div>
+
+        </div>
 
 
 
@@ -127,8 +191,7 @@
 
 
 <!--Begin core plugin -->
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
+
 <script src="assets/plugins/moment/moment.js"></script>
 <script  src="assets/js/jquery.slimscroll.js "></script>
 <script src="assets/js/jquery.nicescroll.js"></script>

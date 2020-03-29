@@ -19,4 +19,24 @@ public class BiologyService {
     public void updateRecord(Biology biology){
         biologyDAO.save(biology);
     }
+
+    public List<Biology> findAll(){
+        return biologyDAO.findAll();
+    }
+
+    public void save(Biology biology){
+        biologyDAO.save(biology);
+    }
+
+    public boolean checkExist(String name){
+        List<Biology> biologyList = biologyDAO.findByName(name);
+        if(biologyList == null || biologyList.size() == 0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    public void delete(int bid){
+        biologyDAO.deleteById(bid);
+    }
 }

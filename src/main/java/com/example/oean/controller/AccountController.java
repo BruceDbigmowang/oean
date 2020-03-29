@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
 public class AccountController {
@@ -28,5 +29,26 @@ public class AccountController {
                 return 1;
             }
         }
+    }
+
+
+    @RequestMapping("/showAllUser")
+    public List<Account> findAllUser(@RequestParam("role")String role){
+        return accountService.findByRole(role);
+    }
+
+    @RequestMapping("/has")
+    public boolean exist(@RequestParam("account")String account){
+        return accountService.exist(account);
+    }
+
+    @RequestMapping("/saveUser")
+    public void save(@RequestParam("account")String account , @RequestParam("name")String name){
+        Account user = new Account();
+        user.setAccount(account);
+        user.setName(name);
+        user.setPassword("12345678");
+        user.setRole("user");
+        accountService.save(user);
     }
 }

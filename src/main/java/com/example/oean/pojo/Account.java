@@ -10,9 +10,11 @@ import javax.persistence.*;
 public class Account {
     @Id
     @Column(name = "account")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     String account;
 
+    @Column(name = "name")
+    String name;
     @Column(name = "password")
     String password;
     @Column(name="role")
@@ -24,6 +26,14 @@ public class Account {
 
     public void setAccount(String account) {
         this.account = account;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {
