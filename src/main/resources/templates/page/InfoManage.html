@@ -20,6 +20,7 @@
     <link href="assets/css/responsive.css" rel="stylesheet">
     <script src="js/jquery/2.0.0/jquery.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
+    <script src="js/ajaxfileupload.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -112,6 +113,40 @@
         })
     }
 
+    function submitByExcel(){
+        // 检查是否有输入，检查文件格式是否正确
+        var fileDir = $("#excelFile").val();
+        var suffix = fileDir.substr(fileDir.lastIndexOf("."));
+        if("" == fileDir){
+            $.message({
+                message:'选择需要导入的Excel文件！',
+                type:'error'
+            });
+            return false;
+        }
+        if(".xls" != suffix && ".xlsx" != suffix ){
+            $.message({
+                message:'选择Excel格式的文件导入！',
+                type:'error'
+            }) ;
+            return false;
+        }
+
+        $.ajaxFileUpload({
+            url:"uploadByExcel",
+            type:"POST",
+            dataType: "text",
+            fileElementId :"excelFile",
+            success:function (data) {
+                alert(data);
+            },
+            error:function () {
+                alert("信息导入失败");
+            }
+
+        })
+    }
+
 </script>
 
 <!--Start left side Menu-->
@@ -194,7 +229,7 @@
     <div class="wrapper">
         <div>
             <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">新建海洋生物信息</button>
-            <button class="btn btn-primary">excel表格批量导入</button>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal2">excel表格批量导入</button>
         </div>
         <div class="modal fade" id="myModal"  data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" style="width: 800px;height: 400px;">
@@ -244,6 +279,26 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div>
+
+        <div class="modal fade" id="myModal2"  data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">批量导入</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>选择Excel文件</p>
+                        <input id="excelFile" type="file" name="excelFile" accept=".xls,.xlsx" />
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+                        <button class="btn btn-primary" type="button" onclick="submitByExcel()">提交</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+
         <div style="width:600px;margin-left: 20%;margin-top: 5%;">
             <table class="table" style="font-size: 18px;background-color: white;">
                 <thead>
@@ -259,7 +314,7 @@
 
 
     <!--Start  Footer -->
-    <footer class="footer-main">Copyright &copy; 2018.Company name All rights reserved.<a target="_blank" href="http://www.17sucai.com/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></footer>
+    <footer class="footer-main">Copyright &copy; 2018.Company name All rights reserved.<a target="_blank">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></footer>
     <!--End footer -->
 
 </div>

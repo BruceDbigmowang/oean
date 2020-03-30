@@ -51,4 +51,17 @@ public class AccountController {
         user.setRole("user");
         accountService.save(user);
     }
+
+    @RequestMapping("/changeRole")
+    public void changeRole(@RequestParam("account")String account , @RequestParam("role")String role){
+        Account user = accountService.findByAccount(account);
+        String name = user.getName();
+        String password = user.getPassword();
+        Account person = new Account();
+        person.setAccount(account);
+        person.setName(name);
+        person.setPassword(password);
+        person.setRole(role);
+        accountService.save(person);
+    }
 }

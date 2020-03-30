@@ -32,4 +32,8 @@ public class AccountService {
             return true;
         }
     }
+
+    public Account findByAccount(String account){
+        return accountDAO.findByAccount(account);
+    }
 }

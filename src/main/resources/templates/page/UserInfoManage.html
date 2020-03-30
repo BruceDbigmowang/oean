@@ -71,6 +71,81 @@ function saveUser(){
         async:false,
         success:function (data) {
             alert("数据保存成功");
+            getAllUser();
+        }
+    })
+}
+
+function getAllUser() {
+    var role = "user";
+    var data = {"role":role};
+    var url="showAllUser";
+    $.ajax({
+        type:"post",
+        data:data,
+        url:url,
+        async:false,
+        success:function(data){
+            $("#allUser").html("");
+            if(data.length != 0){
+                for(var i = 0 ; i < data.length ; i++){
+                    $("#allUser").append("<tr>"+"<td>"+data[i].account+"</td>"+"<td>"+data[i].name+"</td>"+"<td>"+'<button class="btn btn-primary" onclick="setAsAdmin('+data[i].account+')">设置为管理员</button>'+"</td>"+"</tr>")
+                }
+            }else{
+                alert("暂无数据")
+            }
+        }
+    })
+}
+
+function getAllAdmin() {
+    var role = "admin";
+    var data = {"role":role};
+    var url="showAllUser";
+    $.ajax({
+        type:"post",
+        data:data,
+        url:url,
+        async:false,
+        success:function(data){
+            $("#allUser").html("");
+            if(data.length != 0){
+                for(var i = 0 ; i < data.length ; i++){
+                    $("#allUser").append("<tr>"+"<td>"+data[i].account+"</td>"+"<td>"+data[i].name+"</td>"+"<td>"+'<button class="btn btn-primary" onclick="setAsUser('+data[i].account+')">设置为用户</button>'+"</td>"+"</tr>")
+                }
+            }else{
+                alert("暂无数据")
+            }
+        }
+    })
+}
+function setAsUser(account) {
+    var role = "user";
+    var data = {"account":account , "role":role};
+    var url = "changeRole";
+    $.ajax({
+        type:"post",
+        data:data,
+        url:url,
+        async:false,
+        success:function(data){
+            alert("设置成功");
+            getAllUser();
+        }
+    })
+}
+function setAsAdmin(account) {
+    var role = "admin";
+    var data = {"account":account , "role":role};
+    var url = "changeRole";
+    $.ajax({
+        type:"post",
+        data:data,
+        url:url,
+        async:false,
+        success:function(data){
+            alert("设置成功");
+            getAllAdmin();
         }
     })
 }
@@ -95,7 +170,7 @@ function saveUser(){
         <ul class="nav nav-pills nav-stacked custom-nav">
 
             <li><a href="foreUserInfoManager"><i class="icon-note"></i> <span>用户信息管理</span></a></li>
-            <li><a href="forCategoryManage"><i class="icon-note"></i> <span>生物分类管理</span></a></li>
+            <li><a href="foreCategoryManage"><i class="icon-note"></i> <span>生物分类管理</span></a></li>
             <li><a href="foreInfoManage"><i class="icon-note"></i> <span>生物信息管理</span></a></li>
 
 
@@ -156,10 +231,10 @@ function saveUser(){
     <!--body wrapper start-->
     <div class="wrapper">
 
-        <div style="position: relative;width:1000px;height: 800px;">
-            <button class="btn btn-primary">显示所有用户</button><button class="btn btn-primary">显示所有管理员</button>
+        <div style="position: relative;width:1000px;height: 600px;">
+            <button class="btn btn-primary" onclick="getAllUser()">显示所有用户</button><button class="btn btn-primary" onclick="getAllAdmin()">显示所有管理员</button>
 
-            <div style="position: absolute;width:1000px;height:600px;">
+            <div style="position: absolute;width:800px;height:500px;">
                 <table class="table" style="background-color: white;font-size: 18px;margin-left: 10%;margin-top: 5%;">
                     <thead>
                     <tr>
@@ -169,7 +244,7 @@ function saveUser(){
                     <tbody id="allUser"></tbody>
                 </table>
             </div>
-            <div style="position: absolute;margin-top: 700px;margin-left: 20%">
+            <div style="position: absolute;margin-top: 500px;margin-left: 20%">
                 账号<input id="account" style="width: 250px;font-size: 18px;">姓名<input id="name" style="width: 250px;font-size: 18px;"><button class="btn btn-primary" onclick="checkExist();">提交</button>
             </div>
 
