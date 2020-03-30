@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="assets/images/favicon.png" type="image/png">
-    <title>欢迎登录，用户</title>
+    <title>综合检索</title>
 
     <!--Begin  Page Level  CSS -->
     <link href="assets/plugins/morris-chart/morris.css" rel="stylesheet">
@@ -34,7 +34,34 @@
 
 <body class="sticky-header">
 
-
+<script>
+    function searchBiology(){
+        var JIE = document.getElementById("JIE").value;
+        var MEN = document.getElementById("MEN").value;
+        var GANG = document.getElementById("GANG").value;
+        var MU = document.getElementById("MU").value;
+        var KE = document.getElementById("KE").value;
+        var SHU = document.getElementById("SHU").value;
+        var data = {"JIE":JIE , "MEN":MEN , "GANG":GANG , "MU":MU , "KE":KE , "SHU":SHU};
+        var url = "findByColumns";
+        $.ajax({
+            type:"post",
+            data:data,
+            url:url,
+            async:false,
+            success:function(data){
+                $("#allBiology").html("");
+                if(data.length == 0){
+                    alert("暂无数据");
+                }else{
+                    for(var i = 0 ; i < data.length ; i++){
+                        $("#allBiology").append("<tr>"+"<td>"+data[i].name+"</td>"+"<td>"+data[i].jie+"</td>"+"<td>"+data[i].men+"</td>"+"<td>"+data[i].gang+"</td>"+"<td>"+data[i].mu+"</td>"+"<td>"+data[i].ke+"</td>"+"<td>"+data[i].shu+"</td>"+"</tr>")
+                    };
+                }
+            }
+        })
+    }
+</script>
 
 <!--Start left side Menu-->
 <div class="left-side sticky-left-side">
@@ -117,6 +144,43 @@
 
     <!--body wrapper start-->
     <div class="wrapper">
+        <div style="position: relative;margin-left: 5%;">
+            <div style="width: 800px;position: absolute;float: left;">
+                <table class="table" style="background-color: white;font-size: 18px;">
+                    <tr>
+                        <td>界</td><td><input id="JIE" style="width: 200px;font-size: 18px;"></td>
+                        <td>门</td><td><input id="MEN" style="width: 200px;font-size: 18px;"></td>
+                        <td>纲</td><td><input id="GANG" style="width: 200px;font-size: 18px;"></td>
+                    </tr>
+                    <tr>
+                        <td>目</td><td><input id="MU" style="width: 200px;font-size: 18px;"></td>
+                        <td>科</td><td><input id="KE" style="width: 200px;font-size: 18px;"></td>
+                        <td>属</td><td><input id="SHU" style="width: 200px;font-size: 18px;"></td>
+                    </tr>
+                </table>
+
+            </div>
+            <div style="position: absolute;float: left ; margin-left: 800px;margin-top: 18px;">
+                <button class="btn btn-primary" style="width: 100px;height:60px;font-size: 18px;" onclick="searchBiology()">搜索</button>
+            </div>
+        </div>
+        <div style="margin-top: 10%;">
+            <table class="table" style="background-color: white;font-size: 18px;">
+                <thead>
+                    <tr>
+                        <td>名称</td>
+                        <td>界</td>
+                        <td>门</td>
+                        <td>纲</td>
+                        <td>目</td>
+                        <td>科</td>
+                        <td>属</td>
+
+                    </tr>
+                </thead>
+                <tbody id="allBiology"></tbody>
+            </table>
+        </div>
     </div>
     <!-- End Wrapper-->
 

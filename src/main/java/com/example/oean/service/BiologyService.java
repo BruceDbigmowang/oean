@@ -39,4 +39,32 @@ public class BiologyService {
     public void delete(int bid){
         biologyDAO.deleteById(bid);
     }
+
+    public List<Biology> find(String JIE , String MEN , String GANG , String MU , String KE , String SHU){
+        return biologyDAO.find(JIE , MEN , GANG , MU , KE , SHU);
+    }
+
+    public List<Biology> findByJIE(String JIE){
+        return biologyDAO.findByJie(JIE);
+    }
+
+    public List<Biology> findByMEN(String MEN){
+        return biologyDAO.findByMen(MEN);
+    }
+
+    public List<Biology> findByGANG(String GANG){
+        return biologyDAO.findByGang(GANG);
+    }
+
+    public List<Biology> findByMU(String MU){
+        return biologyDAO.findByMu(MU);
+    }
+
+    public List<Biology> findByKE(String KE){
+        return biologyDAO.findByKe(KE);
+    }
+
+    public List<Biology> findBySHU(String SHU){
+        return biologyDAO.findByShu(SHU);
+    }
 }

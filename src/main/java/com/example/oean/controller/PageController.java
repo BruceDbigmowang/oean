@@ -44,4 +44,39 @@ public class PageController {
     public String toInfoManage(){
         return "page/InfoManage";
     }
+
+    @GetMapping("/foreJIESearch")
+    public String toJIE(){
+        return "page/JIESearch";
+    }
+
+    @GetMapping("/foreMENSearch")
+    public String toMEN(){
+        return "page/MENSearch";
+    }
+
+    @GetMapping("/foreGANGSearch")
+    public String toGANG(){
+        return "page/GANGSearch";
+    }
+
+    @GetMapping("/foreMUSearch")
+    public String toMU(){
+        return "page/MUSearch";
+    }
+
+    @GetMapping("/foreKESearch")
+    public String toKE(){
+        return "page/KESearch";
+    }
+
+    @GetMapping("/foreSHUSearch")
+    public String toSHU(){
+        return "page/SHUSearch";
+    }
+
+    @GetMapping("/foreManyColumnSearch")
+    public String toManySearch(){
+        return "page/ColumnSearch";
+    }
 }

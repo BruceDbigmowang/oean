@@ -15,17 +15,17 @@ public class Biology {
     @Column(name = "name")
     String name;
     @Column(name = "JIE")
-    String Jie;
+    String jie;
     @Column(name = "MEN")
-    String Men;
+    String men;
     @Column(name = "GANG")
-    String Gang;
+    String gang;
     @Column(name = "MU")
-    String Mu;
+    String mu;
     @Column(name = "KE")
-    String Ke;
+    String ke;
     @Column(name = "SHU")
-    String Shu;
+    String shu;
     @Column(name = "Info")
     String info;
 
@@ -46,51 +46,51 @@ public class Biology {
     }
 
     public String getJie() {
-        return Jie;
+        return jie;
     }
 
     public void setJie(String jie) {
-        Jie = jie;
+        this.jie = jie;
     }
 
     public String getMen() {
-        return Men;
+        return men;
     }
 
     public void setMen(String men) {
-        Men = men;
+        this.men = men;
     }
 
     public String getGang() {
-        return Gang;
+        return gang;
     }
 
     public void setGang(String gang) {
-        Gang = gang;
+        this.gang = gang;
     }
 
     public String getMu() {
-        return Mu;
+        return mu;
     }
 
     public void setMu(String mu) {
-        Mu = mu;
+        this.mu = mu;
     }
 
     public String getKe() {
-        return Ke;
+        return ke;
     }
 
     public void setKe(String ke) {
-        Ke = ke;
+        this.ke = ke;
     }
 
     public String getShu() {
-        return Shu;
+        return shu;
     }
 
     public void setShu(String shu) {
-        Shu = shu;
+        this.shu = shu;
     }
 
     public String getInfo() {

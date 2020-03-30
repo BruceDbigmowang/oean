@@ -197,4 +197,38 @@ public class BiologyController {
         }
         return "数据导入成功";
     }
+    @RequestMapping("/findByColumns")
+    public List<Biology> find(@RequestParam("JIE")String JIE , @RequestParam("MEN")String MEN , @RequestParam("GANG")String GANG , @RequestParam("MU")String MU ,
+                              @RequestParam("KE")String KE , @RequestParam("SHU")String SHU){
+        return biologyService.find(JIE , MEN , GANG , MU , KE , SHU);
+    }
+
+    @RequestMapping("/findByJIE")
+    public List<Biology> searchJIE(@RequestParam("JIE")String JIE){
+        return biologyService.findByJIE(JIE);
+    }
+    @RequestMapping("/findByMEN")
+    public List<Biology> searchMEN(@RequestParam("MEN")String MEN){
+        return biologyService.findByMEN(MEN);
+    }
+
+    @RequestMapping("/findByGANG")
+    public List<Biology> searchGANG(@RequestParam("GANG")String GANG){
+        return biologyService.findByGANG(GANG);
+    }
+
+    @RequestMapping("/findByMU")
+    public List<Biology> searchMU(@RequestParam("MU")String MU){
+        return biologyService.findByMU(MU);
+    }
+
+    @RequestMapping("/findByKE")
+    public List<Biology> searchKE(@RequestParam("KE")String KE){
+        return biologyService.findByKE(KE);
+    }
+
+    @RequestMapping("/findBySHU")
+    public List<Biology> searchSHU(@RequestParam("SHU")String SHU){
+        return biologyService.findBySHU(SHU);
+    }
 }

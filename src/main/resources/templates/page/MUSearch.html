@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="assets/images/favicon.png" type="image/png">
-    <title>欢迎登录，用户</title>
+    <title>目别检索</title>
 
     <!--Begin  Page Level  CSS -->
     <link href="assets/plugins/morris-chart/morris.css" rel="stylesheet">
@@ -34,7 +34,29 @@
 
 <body class="sticky-header">
 
-
+<script>
+    function getAllBiologyByMU(){
+        var MU = document.getElementById("MU").value;
+        var data = {"MU":MU};
+        var url = "findByMU";
+        $.ajax({
+            type:"post",
+            data:data,
+            url:url,
+            async:false,
+            success:function(data){
+                $("#allBiology").html("");
+                if(data.length == 0){
+                    alert("暂无数据");
+                }else{
+                    for(var i = 0 ; i < data.length ; i++){
+                        $("#allBiology").append("<tr>"+"<td>"+data[i].name+"</td>"+"<td>"+data[i].jie+"</td>"+"<td>"+data[i].men+"</td>"+"<td>"+data[i].gang+"</td>"+"<td>"+data[i].mu+"</td>"+"<td>"+data[i].ke+"</td>"+"<td>"+data[i].shu+"</td>"+"</tr>");
+                    }
+                }
+            }
+        })
+    }
+</script>
 
 <!--Start left side Menu-->
 <div class="left-side sticky-left-side">
@@ -117,6 +139,30 @@
 
     <!--body wrapper start-->
     <div class="wrapper">
+
+        <div style="position:relative;width:1000px;height:600px;overflow: auto;">
+            <div style="position: absolute;float: left;margin-left: 30%;">
+                <input id="MU" style="font-size: 18px;width:300px;height:35px;" placeholder="输入搜索的目别"><button class="btn btn-primary" style="font-size: 18px;" onclick="getAllBiologyByMU()">搜索</button>
+            </div>
+
+            <div style="position: absolute;float: left;margin-top: 10%;width:800px;margin-left: 12%;">
+                <table class="table" style="font-size: 18px;background-color: white;">
+                    <thead>
+                    <tr>
+                        <td>名称</td>
+                        <td>界</td>
+                        <td>门</td>
+                        <td>纲</td>
+                        <td>目</td>
+                        <td>科</td>
+                        <td>属</td>
+                    </tr>
+                    </thead>
+                    <tbody id="allBiology"></tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
     <!-- End Wrapper-->
 
